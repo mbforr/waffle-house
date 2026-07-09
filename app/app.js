@@ -8,7 +8,9 @@
 
 const HARDCODED_TOKEN = "";          // optional: put your pk.* token here
 const TOKEN_KEY = "wh_mapbox_token";
-const DATA_BASE = "../output/routes";
+// Route data is bundled with the app (app/data) so it's self-contained and
+// deployable (Vercel etc.). Refresh it from the pipeline with scripts/sync-data.sh.
+const DATA_BASE = "./data";
 
 const ROUTES = [
   { key: "pure",      label: "1 · Pure TSP",         color: "#ffb400" },

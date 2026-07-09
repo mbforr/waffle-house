@@ -1,0 +1,8 @@
+{
+  "solver": "ortools",
+  "n_stops": 2022,
+  "total_distance_km": 45317.8,
+  "total_drive_time_hours": 469.3,
+  "naive_nn_distance_km": 52461.2,
+  "improvement_pct_vs_naive": 13.62
+}

@@ -1,0 +1,13 @@
+{
+  "solver": "ortools",
+  "constraint": "sleep",
+  "n_stops": 2022,
+  "total_distance_km": 45317.8,
+  "total_drive_time_hours": 469.3,
+  "rest_hours": 232.0,
+  "overnight_stops": 29,
+  "total_elapsed_hours": 701.3,
+  "total_elapsed_days": 29.2,
+  "max_drive_hours_before_rest": 16.0,
+  "rest_block_hours": 8.0
+}

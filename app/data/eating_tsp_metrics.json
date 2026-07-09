@@ -1,0 +1,13 @@
+{
+  "solver": "ortools",
+  "constraint": "eating",
+  "n_stops": 2022,
+  "total_distance_km": 45317.8,
+  "total_drive_time_hours": 469.3,
+  "eating_minutes_per_stop": 30.0,
+  "eating_hours": 1011.0,
+  "total_elapsed_hours": 1480.3,
+  "total_elapsed_days": 61.7,
+  "cumulative_calories": 829020,
+  "calories_per_stop": 410
+}

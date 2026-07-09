@@ -1,0 +1,16 @@
+{
+  "solver": "ortools",
+  "constraint": "hurricane",
+  "storm": "HELENE 2024",
+  "closure_threshold_mph": 75,
+  "closure_radius_km": 80,
+  "n_closed": 24,
+  "n_open_stops": 1998,
+  "total_distance_km": 42958.9,
+  "total_drive_time_hours": 444.9,
+  "closures_by_storm_2024": {
+    "HELENE": 24,
+    "MILTON": 24,
+    "FRANCINE": 3
+  }
+}

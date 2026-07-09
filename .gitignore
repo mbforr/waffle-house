@@ -28,6 +28,9 @@ output/
 .env
 app/config.js
 
+# Vercel CLI local state
+.vercel/
+
 # OS / editor cruft
 .DS_Store
 .ipynb_checkpoints/

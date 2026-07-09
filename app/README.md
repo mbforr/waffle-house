@@ -1,36 +1,64 @@
 # Waffle House Route Explorer (Mapbox globe)
 
 Interactive globe app that animates the TSP tours produced by the pipeline.
+Self-contained: route data is bundled in `app/data/`, so it runs locally and
+deploys as a static site.
 
-## Run
-
-Serve the **repo root** over HTTP (the app reads `../output/routes/*.geojson`):
+## Run locally
 
 ```bash
-cd /Users/mattforrest/Documents/waffle-house
+cd app
 python3 -m http.server 8000
-# then open:
-open http://localhost:8000/app/
+# open http://localhost:8000/
 ```
 
-First load asks for a **Mapbox public token** (`pk.…`). It's stored in your
-browser's localStorage — paste it once. (Or hard-code `HARDCODED_TOKEN` in
-`app.js`.) Get a token at account.mapbox.com/access-tokens.
+The Mapbox token is read from `config.js` (gitignored). Locally it's generated
+from the repo-root `.env`:
+
+```bash
+MAPBOX_TOKEN="$(grep '^MAPBOX_TOKEN=' ../.env | cut -d= -f2-)" node ../scripts/gen-config.mjs
+```
+
+(You can also paste a token into the in-app prompt — it's saved to localStorage —
+or hard-code `HARDCODED_TOKEN` in `app.js`.)
+
+## Deploy to Vercel
+
+The app deploys as a static site; the token comes from a Vercel **environment
+variable** (never committed).
+
+1. Import the repo at vercel.com (or run `vercel` with the CLI).
+2. Project → Settings → **Environment Variables** → add
+   `MAPBOX_TOKEN = pk.…` (Production + Preview).
+3. Deploy. `vercel.json` runs `node scripts/gen-config.mjs`, which writes
+   `app/config.js` from `MAPBOX_TOKEN`, and serves `app/` (`outputDirectory`).
+
+`vercel.json` (repo root):
+```json
+{ "buildCommand": "node scripts/gen-config.mjs", "outputDirectory": "app", "cleanUrls": true }
+```
+
+> **Restrict the token.** A Mapbox `pk.*` token is visible in client-side JS by
+> design. In Mapbox → Account → Tokens, add a **URL restriction** for your Vercel
+> domain so it can't be reused elsewhere.
+
+## Keep data fresh
+
+`app/data/` is a committed snapshot of the route GeoJSONs. After re-running the
+TSP solvers, refresh it:
+
+```bash
+scripts/sync-data.sh      # copies output/routes/*.{geojson,json} -> app/data/
+```
 
 ## Features
 
 - **Globe view** (Mapbox `projection: globe`) with atmosphere/fog.
-- **Layers / route selector** — switch between the four tours: Pure, +Sleep,
-  +Eating, +Hurricane. Each recolors the line/points and updates the stats panel
-  (distance, days, calories, closures, …) from the route's metrics JSON.
-- **Play / Pause / Reset** — reveals stops in tour order, drawing the connecting
-  line and (optionally) flying the camera from stop to stop.
-- **Speed** (0.25–8×) and **camera zoom** sliders; toggles for camera-follow,
-  the full faint route line, and all stops shown faintly.
-
-## Notes
-
-- Data is read live from `output/routes/`, so re-running the pipeline updates the
-  app automatically (just refresh).
-- ~2,000 points per route; reveal uses layer filters + line slicing (cheap), so
-  it stays smooth even at 8× on the full tour.
+- **Route selector** — Pure, +Sleep, +Eating, +Hurricane. Recolors line/points
+  and updates the stats panel (distance, days, calories, closures) from metrics.
+- **Hurricane view** shows the 24 storm-closed stores as persistent **red** dots
+  (kept on the map, not removed) while the tour reroutes around them.
+- **Play / Pause / Reset** — reveals stops in tour order, drawing the line and
+  flying the camera stop-to-stop.
+- **Speed** (0.25–8×), **camera zoom**, and toggles for camera-follow, the faint
+  full route line, and all stops shown faintly.
