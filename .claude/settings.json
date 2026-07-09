@@ -1,0 +1,29 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(docker exec *)",
+      "Bash(awk 'NR==2{print \"avail:\",$4}')",
+      "Bash(docker rm *)",
+      "Bash(awk 'NR==2{print \" avail:\",$4}')",
+      "Bash(rm -rf data/valhalla_tiles data/valhalla_tiles.tar data/valhalla.json data/.file_hashes.txt data/*.sqlite data/admins.sqlite data/timezones.sqlite)",
+      "Bash(awk 'NR==2{print \"  avail:\",$4}')",
+      "Bash(osmium --version)",
+      "Bash(awk '{print $5,$9}')",
+      "Bash(set -e)",
+      "Bash(.venv/bin/python src/03_solve_tsp_pure.py     --time-limit 120)",
+      "Bash(.venv/bin/python src/04_solve_tsp_sleep.py    --time-limit 120)",
+      "Bash(.venv/bin/python src/05_solve_tsp_eating.py   --time-limit 120)",
+      "Bash(.venv/bin/python src/06_solve_tsp_hurricane.py --time-limit 120)",
+      "Bash(.venv/bin/python -)",
+      "Bash(.venv/bin/python src/03_solve_tsp_pure.py     --force --time-limit 120)",
+      "Bash(.venv/bin/python src/04_solve_tsp_sleep.py    --force --time-limit 120)",
+      "Bash(.venv/bin/python src/05_solve_tsp_eating.py   --force --time-limit 120)",
+      "Bash(.venv/bin/python src/06_solve_tsp_hurricane.py --force --time-limit 120)",
+      "Bash(.venv/bin/python src/07_find_outlier.py        --force)",
+      "Bash(.venv/bin/python src/08_visualize.py           --force)",
+      "Bash(.venv/bin/python src/09_summary.py             --force)",
+      "Bash(command -v node)",
+      "Bash(node --check app/app.js)"
+    ]
+  }
+}

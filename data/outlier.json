@@ -1,0 +1,10 @@
+{
+  "id": "cb22c628-6d54-40ae-8db2-657c34621770",
+  "name": "Waffle House",
+  "address": "2250 Yale Blvd SE",
+  "city": "Albuquerque",
+  "state": "NM",
+  "lat": 35.05614879,
+  "lon": -106.62147006,
+  "nearest_neighbor_distance_km": 456.9
+}

@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <title>Every Waffle House in America — Route Explorer</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <link href="https://api.mapbox.com/mapbox-gl-js/v3.9.0/mapbox-gl.css" rel="stylesheet" />
+  <link href="style.css" rel="stylesheet" />
+</head>
+<body>
+  <div id="map"></div>
+
+  <!-- Token gate (shown until a Mapbox token is provided) -->
+  <div id="token-gate" class="panel hidden">
+    <h2>Mapbox token needed</h2>
+    <p>Paste your Mapbox public access token (starts with <code>pk.</code>).
+       It's saved in your browser only.</p>
+    <input id="token-input" type="text" placeholder="pk.eyJ1Ijoi..." autocomplete="off" />
+    <button id="token-save">Load map</button>
+    <p class="hint">Get one at <span class="mono">account.mapbox.com/access-tokens</span></p>
+  </div>
+
+  <!-- Controls -->
+  <div id="controls" class="panel">
+    <h1>🧇 Every Waffle House<br/><span class="sub">The Traveling Salesman tour</span></h1>
+
+    <label class="field">
+      <span>Route</span>
+      <select id="route-select"></select>
+    </label>
+
+    <div id="stats" class="stats"></div>
+
+    <div class="transport">
+      <button id="play" class="primary">▶ Play</button>
+      <button id="reset">⟲ Reset</button>
+    </div>
+
+    <label class="field">
+      <span>Speed <b id="speed-label">1×</b></span>
+      <input id="speed" type="range" min="0.25" max="8" step="0.25" value="1" />
+    </label>
+
+    <label class="field">
+      <span>Camera zoom <b id="zoom-label">5.2</b></span>
+      <input id="zoom" type="range" min="3" max="9" step="0.1" value="5.2" />
+    </label>
+
+    <div class="toggles">
+      <label><input type="checkbox" id="t-follow" checked /> Camera follows</label>
+      <label><input type="checkbox" id="t-fullroute" /> Show full route line</label>
+      <label><input type="checkbox" id="t-allpoints" checked /> Show all stops (faint)</label>
+    </div>
+
+    <div id="progress" class="progress">Stop 0 / 0</div>
+    <div id="current" class="current"></div>
+  </div>
+
+  <script src="https://api.mapbox.com/mapbox-gl-js/v3.9.0/mapbox-gl.js"></script>
+  <script src="config.js"></script> <!-- optional: sets window.MAPBOX_TOKEN (gitignored) -->
+  <script src="app.js"></script>
+</body>
+</html>

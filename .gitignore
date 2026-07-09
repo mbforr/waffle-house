@@ -1,0 +1,33 @@
+# Python environment
+.venv/
+__pycache__/
+*.pyc
+
+# Large data artifacts (never commit)
+data/*.osm.pbf
+data/*.osrm*
+data/distance_matrix.npy
+data/distance_matrix.partial.npy
+
+# Valhalla build artifacts (written into data/ when data is mounted as /custom_files)
+data/valhalla.json
+data/valhalla_tiles/
+data/valhalla_tiles.tar
+data/*.bin
+data/admin*.sqlite
+data/timezones*.sqlite
+data/.file_hashes.txt
+data/osrm-extract.log
+
+output/
+
+# Logs
+*.log
+
+# Secrets / tokens (never commit)
+.env
+app/config.js
+
+# OS / editor cruft
+.DS_Store
+.ipynb_checkpoints/
