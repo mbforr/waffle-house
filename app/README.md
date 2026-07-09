@@ -12,11 +12,11 @@ python3 -m http.server 8000
 # open http://localhost:8000/
 ```
 
-The Mapbox token is read from `config.js` (gitignored). Locally it's generated
+The Mapbox token is read from `config.js` (gitignored). Locally, generate it
 from the repo-root `.env`:
 
 ```bash
-MAPBOX_TOKEN="$(grep '^MAPBOX_TOKEN=' ../.env | cut -d= -f2-)" node ../scripts/gen-config.mjs
+( cd app && MAPBOX_TOKEN="$(grep '^MAPBOX_TOKEN=' ../.env | cut -d= -f2-)" node build.mjs )
 ```
 
 (You can also paste a token into the in-app prompt — it's saved to localStorage —
@@ -24,18 +24,20 @@ or hard-code `HARDCODED_TOKEN` in `app.js`.)
 
 ## Deploy to Vercel
 
-The app deploys as a static site; the token comes from a Vercel **environment
-variable** (never committed).
+This `app/` folder is the deployable unit. In the Vercel project set
+**Root Directory = `app`**, and the token comes from an **environment variable**
+(never committed).
 
-1. Import the repo at vercel.com (or run `vercel` with the CLI).
-2. Project → Settings → **Environment Variables** → add
-   `MAPBOX_TOKEN = pk.…` (Production + Preview).
-3. Deploy. `vercel.json` runs `node scripts/gen-config.mjs`, which writes
-   `app/config.js` from `MAPBOX_TOKEN`, and serves `app/` (`outputDirectory`).
+1. Import the repo at vercel.com (or run `vercel`).
+2. Project → Settings → **Root Directory → `app`**.
+3. Project → Settings → **Environment Variables** → add
+   `MAPBOX_TOKEN = pk.…` (Production + Preview + Development).
+4. Deploy. `app/vercel.json` runs `node build.mjs`, which writes `config.js`
+   from `MAPBOX_TOKEN`, then serves this folder.
 
-`vercel.json` (repo root):
+`app/vercel.json`:
 ```json
-{ "buildCommand": "node scripts/gen-config.mjs", "outputDirectory": "app", "cleanUrls": true }
+{ "buildCommand": "node build.mjs", "outputDirectory": ".", "framework": null }
 ```
 
 > **Restrict the token.** A Mapbox `pk.*` token is visible in client-side JS by
